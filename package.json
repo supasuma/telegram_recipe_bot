@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/supasuma/telegram_recipe_bot#readme",
   "dependencies": {
+    "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "^0.24.0"
   }
 }
