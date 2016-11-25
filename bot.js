@@ -13,38 +13,34 @@ if (process.env.NODE_ENV === 'production') {
 
 console.log('bot server started in the ' + process.env.NODE_ENV + ' mode');
 
-//THEY ALL WORK WITH OR WITHOUT CALLBACK!
 
-// Any kind of message
 bot.on('message', function (msg) {
   var chatId = msg.chat.id;
-  // photo can be: a file path, a stream or a Telegram file_id
   var resp = "Recipe bot in action"
   bot.sendMessage(chatId, resp);
 })
 
 bot.onText(/^\/get_recipes (.+)$/, function (msg, match) {
  var ingredients = match[1].split(" ");
- var url;
+ var url ='http://food2fork.com/api/search?key=' + config.food2fork.apiKey + '&q='
+ var stuff = ''
+
  ingredients.map( (ingredient) => {
-  url = 'http://food2fork.com/api/search?key=ac1dade071c008a757442d968333ebc6&q=' + ingredient;
+  stuff += ingredient + ",";
 })
   var chatId = msg.chat.id;
   var resp = ""
-
-  fetch(url)
+  fetch(url+stuff)
     .then(function(res) {
         return res.json();
     }).then(function(json) {
         var recipe = getRecipes(json);
         resp = "Recipes containing: " + ingredients + "\n" + recipe.title + "\n" + recipe.source_url;
-        console.log(resp)
         bot.sendMessage (chatId, resp);
     });
 })
 
 var getRecipes = function(json) {
-  // console.log(json.recipes[0].title);
-  var recipeTitle = json.recipes[0]
-  return recipeTitle
+  var recipeObject = json.recipes[0]
+  return recipeObject
 }
