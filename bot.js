@@ -41,6 +41,8 @@ bot.onText(/^\/get_recipes (.+)$/, function (msg, match) {
 })
 
 var getRecipes = function(json) {
-  var recipeObject = json.recipes[0]
-  return recipeObject
+  var rand = Math.floor( Math.random() * 30 );
+  var recipeObject = json.recipes[rand];
+  
+  return recipeObject;
 }
