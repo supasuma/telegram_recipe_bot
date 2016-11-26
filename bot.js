@@ -35,14 +35,14 @@ bot.onText(/^\/get_recipes (.+)$/, function (msg, match) {
         return res.json();
     }).then(function(json) {
         var recipe = getRecipes(json);
-        resp = "Recipes containing: " + ingredients + "\n" + recipe.title + "\n" + recipe.source_url;
+        resp = "Recipes containing: " + ingredients.join(", ") + "\n" + recipe.title + "\n" + recipe.source_url;
         bot.sendMessage (chatId, resp);
     });
 })
 
 var getRecipes = function(json) {
-  var rand = Math.floor( Math.random() * 30 );
+  var rand = Math.floor( Math.random() * json.count );
   var recipeObject = json.recipes[rand];
-  
+
   return recipeObject;
 }
