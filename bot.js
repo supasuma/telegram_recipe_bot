@@ -46,3 +46,8 @@ var getRecipes = function(json) {
 
   return recipeObject;
 }
+
+bot.onText(/\/help/, function(msg, match) {
+  var fromId = msg.from.id;
+  bot.sendMessage(fromId, "This bot has one command.\n/get_recipes where you can then enter 1 or more ingredients separated by a space \nFor example get_recipes chicken mango");
+});
